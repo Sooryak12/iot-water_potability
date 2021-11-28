@@ -19,18 +19,17 @@ def index():
 
 @app.get('/{values}')
 def deploy(values : str):
-    # Defining a function that takes only string as input and output the
-    # following message.
-        print("deploy started")
+
+        #print("deploy started")
     
-        print(values)
+        #print(values)
         list_=values.split('x')
         
         
         
         model=pickle.load(open("dtree_model.sav","rb"))
            
-        print(f" List ::  {list_}")
+        #print(f" List ::  {list_}")
         predict=model.predict(np.array([int(list_[0]),int(list_[1]),int(list_[2]),int(list_[3]),int(list_[4])]).reshape(1,-1))
         
         map={1:"Potable",0:"Not Potable"}
@@ -39,12 +38,11 @@ def deploy(values : str):
         
         return {"Water" : out}
 
-    #except:
-     #   return {"Water": "Not Potable"}
+
 
 
 
 if __name__=="__main__":
-  uvicorn.run(app, host='127.0.0.1', port=4000, debug=False)
+   uvicorn.run(app, host='127.0.0.1', port=4000, debug=False)
     
     
