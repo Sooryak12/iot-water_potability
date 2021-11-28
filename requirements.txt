@@ -1,5 +1,5 @@
 gunicorn
 fastapi 
 uvicorn
-pydantic
-sklearn
+numpy
+nest_asyncio
