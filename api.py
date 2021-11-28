@@ -1,46 +1,50 @@
 import pickle
 from fastapi import FastAPI
 import uvicorn
-from pydantic import BaseModel
+import numpy as np
+import nest_asyncio
+nest_asyncio.apply()
+
 
 
 app=FastAPI()
 
-class info(BaseModel):
-    ph : float
-    Hardness: float
-    Sulfate : float 
-    Turbidity : float 
-    Solids: float
-
-        
 
 @app.get('/')
-def main():
-    return {"message":"working"}
 
-@app.post('/predict')
-def deploy(values: info):
-    data =values.dict()
-    ph =data['ph']
-    hard=data['Hardness']
-    sulphate=data['Sulfate']
-    turb=data['Turbidity']
-    solid=data['Solids']
-    
-    model=pickle.load(open("dtree_model.sav","rb"))
-    
-    predict=model.predict([[ph,hard,sulphate,turb,solid]])
-    
-    map={1:"Yes",0:"No"}
-    
-    out={"Potable":map[predict[0]]}
-    
-    
-    return out
+def index():
+
+    return {'message': "This is the home page of this API. Go to {predict/values}"}
 
 
-#if __name__=="__main__":
-#   uvicorn.run(app, host='127.0.0.1', port=4000, debug=True)
+@app.get('/{values}')
+def deploy(values : str):
+    # Defining a function that takes only string as input and output the
+    # following message.
+        print("deploy started")
+    
+        print(values)
+        list_=values.split('x')
+        
+        
+        
+        model=pickle.load(open("dtree_model.sav","rb"))
+           
+        print(f" List ::  {list_}")
+        predict=model.predict(np.array([int(list_[0]),int(list_[1]),int(list_[2]),int(list_[3]),int(list_[4])]).reshape(1,-1))
+        
+        map={1:"Potable",0:"Not Potable"}
+    
+        out=map[predict[0]]
+        
+        return {"Water" : out}
+
+    #except:
+     #   return {"Water": "Not Potable"}
+
+
+
+if __name__=="__main__":
+  uvicorn.run(app, host='127.0.0.1', port=4000, debug=False)
     
     
