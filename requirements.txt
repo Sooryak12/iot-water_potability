@@ -1,5 +1,5 @@
 gunicorn
-fastapi 
-uvicorn
+fastapi
 numpy
 nest_asyncio
+sklearn
