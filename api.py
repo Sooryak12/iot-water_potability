@@ -6,7 +6,6 @@ import nest_asyncio
 nest_asyncio.apply()
 
 
-
 app=FastAPI()
 
 

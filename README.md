@@ -1,5 +1,6 @@
 # iot-water_potability
 
+
 * It is an API Created to serve the Machine Learning Model .
 * Arduinio calls the API and sends the sensory information on Ph,Dissolved Solids,Sulphate Level to the ML Model.
 * ML Model takes in the data and outputs the Potable Status.
