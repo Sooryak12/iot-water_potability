@@ -7,4 +7,5 @@
 
 API: https://iot-water-potability.herokuapp.com/ 
 
+
 Prediction call : https://iot-water-potability.herokuapp.com/04x72x15x56x12x
